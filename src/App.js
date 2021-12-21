@@ -1,28 +1,25 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
+import React, { useState, useEffect, useMemo } from "react";
+import ReactPlayer from "react-player";
 
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
+import Progress from "./components/Progress";
 const ffmpeg = createFFmpeg({
   log: true,
   corePath: `${process.env.PUBLIC_URL}/ffmpeg-core.js`,
 });
 
 function App() {
-  console.log(process.env.PUBLIC_URL);
-
   const [ready, setReady] = useState(false);
-  const [video, setVideo] = useState();
-  const [gif, setGif] = useState();
+  const [input, setInput] = useState();
+  const [output, setOutput] = useState();
   const [percentage, setPercentage] = useState(0);
 
-  const load = async () => {
-    await ffmpeg.load();
-    setReady(true);
-  };
-
-  console.log(percentage);
-
   useEffect(() => {
+    const load = async () => {
+      await ffmpeg.load();
+      setReady(true);
+    };
+
     load();
   }, []);
 
@@ -30,12 +27,12 @@ function App() {
     // start timer
     const start = new Date().getTime();
 
-    const inMemoryFilename = `working-${video.name}`;
+    const inMemoryFilename = `working-${input.name}`;
 
     // Write the file to memory
-    ffmpeg.FS("writeFile", inMemoryFilename, await fetchFile(video));
+    ffmpeg.FS("writeFile", inMemoryFilename, await fetchFile(input));
 
-    ffmpeg.setProgress(p => {
+    ffmpeg.setProgress((p) => {
       setPercentage(p.ratio * 100);
     });
 
@@ -48,9 +45,8 @@ function App() {
     // Read the result
     const data = ffmpeg.FS("readFile", "out.mp4");
 
-    // Create a URL
-    const url = URL.createObjectURL(new Blob([data.buffer], { type: "video/mp4" }));
-    setGif(url);
+    // Create a URL and set output
+    setOutput(new Blob([data.buffer], { type: "video/mp4" }));
 
     // unlink file
     ffmpeg.FS("unlink", inMemoryFilename);
@@ -61,17 +57,30 @@ function App() {
     console.log(time / 1000 / 60 + "minutes");
   };
 
+  const inputObjectUrl = useMemo(() => {
+    if (input) {
+      return URL.createObjectURL(input);
+    }
+  }, [input]);
+
+  const outputObjectUrl = useMemo(() => {
+    if (output) {
+      return URL.createObjectURL(output);
+    }
+  }, [output])
+
   return ready ? (
     <div className="App">
-      {video && <video controls width="250" src={URL.createObjectURL(video)} />}
+      {inputObjectUrl && <ReactPlayer url={inputObjectUrl} controls />}
 
-      <input type="file" onChange={e => setVideo(e.target.files?.item(0))} />
+      <input type="file" onChange={(e) => setInput(e.target.files?.item(0))} />
 
       <h3>Results</h3>
-      <button onClick={convertToGif}>Convert</button>
+      <button className="button-primary" onClick={convertToGif}>Convert</button>
 
       {/* { gif && <img src={gif} width="250" />} */}
-      {gif && <video controls width="250" src={gif} />}
+      {outputObjectUrl && <ReactPlayer url={outputObjectUrl} controls />}
+      <Progress precentage={percentage} />
     </div>
   ) : (
     <p>Loading...</p>
