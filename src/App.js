@@ -5,8 +5,8 @@ import Select from "react-select";
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import Progress from "./components/Progress";
 const ffmpeg = createFFmpeg({
-  log: true,
-  corePath: `${process.env.PUBLIC_URL}/ffmpeg-core.js`,
+  log: process.env.NODE_ENV !== 'production',
+  corePath: "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js"
 });
 
 const options = [
