@@ -1,17 +1,11 @@
 {
   "env": {
     "browser": true,
-    "es6": true,
     "node": true
   },
   "settings": {
     "react": {
       "version": "detect"
-    },
-    "import/resolver": {
-      "jsconfig": {
-        "config": "jsconfig.json"
-      }
     }
   },
   "parserOptions": {

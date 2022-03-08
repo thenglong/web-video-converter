@@ -1,40 +1,23 @@
-import { useState, useEffect, useMemo } from "react"
+import { useMemo, useState } from "react"
 
-import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg"
-import ReactPlayer from "react-player"
-import Select from "react-select"
+import { fetchFile } from "@ffmpeg/ffmpeg"
 
+import ConverterSetting from "./components/ConverterSetting/ConverterSetting"
+import OutputMedia from "./components/OutputMedia/OutputMedia"
 import Progress from "./components/Progress"
-import Container from "./components/shared/Container/Container"
 import SourceMedia from "./components/SourceMedia/SourceMedia"
-
-const ffmpeg = createFFmpeg({
-  log: process.env.NODE_ENV !== "production",
-  corePath:
-    "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js",
-})
-
-const options = [
-  { value: "mp4", label: "MP4" },
-  { value: "mp3", label: "MP3" },
-  { value: "mkv", label: "MKV" },
-]
+import { useAppContext } from "./context/AppContext"
 
 function App() {
-  const [ready, setReady] = useState(false)
   const [input, setInput] = useState()
   const [output, setOutput] = useState()
   const [percentage, setPercentage] = useState(0)
-  const [selectedType, setSelectedType] = useState(
-    options[0]
-  )
+  const [selectedType, setSelectedType] = useState()
+  // options[0]
 
-  useEffect(() => {
-    ;(async () => {
-      await ffmpeg.load()
-      setReady(true)
-    })()
-  }, [])
+  const {
+    ffmpegWasm: { ffmpeg },
+  } = useAppContext()
 
   const convertToGif = async () => {
     // start timer
@@ -52,8 +35,6 @@ function App() {
     ffmpeg.setProgress((p) => {
       setPercentage(p.ratio * 100)
     })
-
-    console.log(inMemoryFilename)
 
     // Run the FFMpeg command
     // await ffmpeg.run('-i', inMemoryFilename, '-t', '20.5', '-ss', '2.0', '-f', 'mp4', 'out.mp4');
@@ -98,46 +79,48 @@ function App() {
   }, [output])
 
   return (
-    <Container>
+    <div>
       <SourceMedia />
-    </Container>
+      <ConverterSetting />
+      <OutputMedia />
+    </div>
   )
 
   // eslint-disable-next-line no-unreachable
-  return ready ? (
-    <div className="App">
-      {inputObjectUrl && (
-        <ReactPlayer url={inputObjectUrl} controls />
-      )}
-
-      <Select
-        options={options}
-        onChange={setSelectedType}
-        defaultValue={options[0]}
-      />
-
-      <input
-        type="file"
-        onChange={(e) => setInput(e.target.files?.item(0))}
-        accept="image/*, audio/*, video/*"
-      />
-
-      <h3>Results</h3>
-      <button
-        className="button-primary"
-        onClick={convertToGif}
-      >
-        Convert
-      </button>
-
-      {outputObjectUrl && (
-        <ReactPlayer url={outputObjectUrl} controls />
-      )}
-      <Progress precentage={percentage} />
-    </div>
-  ) : (
-    <p>Loading...</p>
-  )
+  // return ready ? (
+  //   <div className="App">
+  //     {inputObjectUrl && (
+  //       <ReactPlayer url={inputObjectUrl} controls />
+  //     )}
+  //
+  //     <Select
+  //       options={options}
+  //       onChange={setSelectedType}
+  //       defaultValue={options[0]}
+  //     />
+  //
+  //     <input
+  //       type="file"
+  //       onChange={(e) => setInput(e.target.files?.item(0))}
+  //       accept="image/*, audio/*, video/*"
+  //     />
+  //
+  //     <h3>Results</h3>
+  //     <button
+  //       className="button-primary"
+  //       onClick={convertToGif}
+  //     >
+  //       Convert
+  //     </button>
+  //
+  //     {outputObjectUrl && (
+  //       <ReactPlayer url={outputObjectUrl} controls />
+  //     )}
+  //     <Progress precentage={percentage} />
+  //   </div>
+  // ) : (
+  //   <p>Loading...</p>
+  // )
 }
 
 export default App

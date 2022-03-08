@@ -1,35 +1,29 @@
-import { useCallback } from "react"
-
-import { Button } from "elementz"
-import { useDropzone } from "react-dropzone"
-
 import "./SourceMedia.css"
+import { useAppContext } from "../../context/AppContext"
+import SourceMediaDropzone from "./SourceMediaDropzone"
 
 const SourceMedia = () => {
-  const onDrop = useCallback((acceptedFiles) => {
-    console.log(acceptedFiles)
-  }, [])
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    isDragReject,
-  } = useDropzone({ onDrop, accept: "video/*" })
+  const { mediaSrc } = useAppContext()
+  const { blobUrl } = mediaSrc.info || {}
 
   return (
-    <div {...getRootProps()} className="source-root">
-      <input {...getInputProps()} />
-
-      {isDragReject && "REjected"}
-
-      {isDragActive ? (
-        <p>Drop the files here ...</p>
-      ) : (
-        <p>
-          Drag and drop some files here, or click to select
-          files
-        </p>
+    <div style={{ width: "40%" }}>
+      <SourceMediaDropzone />
+      {blobUrl && (
+        // eslint-disable-next-line jsx-a11y/media-has-caption
+        <video
+          style={{
+            width: "100%",
+            maxHeight: "40rem",
+          }}
+          src={blobUrl}
+          controls
+        />
       )}
+      <pre>
+        {mediaSrc.info &&
+          JSON.stringify(mediaSrc.info, null, 2)}
+      </pre>
     </div>
   )
 }
