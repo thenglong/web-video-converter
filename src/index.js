@@ -1,15 +1,17 @@
-import React from "react"
+import { StrictMode } from "react"
 
+import "react-circular-progressbar/dist/styles.css"
 import ReactDOM from "react-dom"
 
 import App from "./App"
 import reportWebVitals from "./reportWebVitals"
-import "react-circular-progressbar/dist/styles.css"
+
+import "./styles/global.css"
 
 ReactDOM.render(
-  <React.StrictMode>
+  <StrictMode>
     <App />
-  </React.StrictMode>,
+  </StrictMode>,
   document.getElementById("root")
 )
 

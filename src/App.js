@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react"
 
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg"
+import { Button, Alert } from "elementz"
 import ReactPlayer from "react-player"
 import Select from "react-select"
 
@@ -28,12 +29,10 @@ function App() {
   )
 
   useEffect(() => {
-    const load = async () => {
+    ;(async () => {
       await ffmpeg.load()
       setReady(true)
-    }
-
-    load()
+    })()
   }, [])
 
   const convertToGif = async () => {
@@ -123,11 +122,30 @@ function App() {
         Convert
       </button>
 
-      {/* { gif && <img src={gif} width="250" />} */}
       {outputObjectUrl && (
         <ReactPlayer url={outputObjectUrl} controls />
       )}
       <Progress precentage={percentage} />
+      <Button.Group space>
+        <Button>I&apos;m basic</Button>
+        <Button primary>Primary</Button>
+        <Button secondary>Secondary</Button>
+        <Button warning>I&apos;m warning you</Button>
+        <Button
+          danger
+          effect="icon-buzz"
+          iconRight="sad"
+          onClick={() => Alert.danger("So dangerous")}
+        >
+          I&apos;m dangerous
+        </Button>
+        <Button
+          success
+          onClick={() => Alert.success("Yes")}
+        >
+          Im successful
+        </Button>
+      </Button.Group>
     </div>
   ) : (
     <p>Loading...</p>
