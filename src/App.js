@@ -8,22 +8,16 @@ import Progress from "./components/Progress"
 import SourceMedia from "./components/SourceMedia/SourceMedia"
 import { useAppContext } from "./context/AppContext"
 
-const options = [
-  { value: "mp4", label: "MP4" },
-  { value: "mp3", label: "MP3" },
-  { value: "mkv", label: "MKV" },
-  { value: "webm", label: "WebM" },
-]
-
 function App() {
   const [input, setInput] = useState()
   const [output, setOutput] = useState()
   const [percentage, setPercentage] = useState(0)
-  const [selectedType, setSelectedType] = useState(
-    options[0]
-  )
+  const [selectedType, setSelectedType] = useState()
+  // options[0]
 
-  const { ffmpeg } = useAppContext()
+  const {
+    ffmpegWasm: { ffmpeg },
+  } = useAppContext()
 
   const convertToGif = async () => {
     // start timer
@@ -85,13 +79,7 @@ function App() {
   }, [output])
 
   return (
-    <div
-      style={{
-        width: "100%",
-        background: "gray",
-        display: "flex",
-      }}
-    >
+    <div>
       <SourceMedia />
       <ConverterSetting />
       <OutputMedia />

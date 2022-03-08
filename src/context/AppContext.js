@@ -23,7 +23,7 @@ const ffmpeg = createFFmpeg({
 })
 
 const initialValue = {
-  ffmpeg: {
+  ffmpegWasm: {
     isLoading: false,
     isLoadingError: false,
     isLoadingSuccess: false,
@@ -47,7 +47,7 @@ const appReducer = (state = initialValue, action) => {
     case SET_FFMPEG_STATE:
       return {
         ...state,
-        ffmpeg: action.payload,
+        ffmpegWasm: action.payload,
       }
     case SET_MEDIA_SRC_STATE: {
       // check and clear the blobUrl from memory
@@ -105,7 +105,7 @@ export const AppProvider = ({ children }) => {
             isLoading: false,
             isLoadingSuccess: false,
             isLoadingError: true,
-            error: error,
+            error,
           },
         })
       }
