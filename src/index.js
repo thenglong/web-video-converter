@@ -4,13 +4,16 @@ import "react-circular-progressbar/dist/styles.css"
 import ReactDOM from "react-dom"
 
 import App from "./App"
+import { AppProvider } from "./context/AppContext"
 import reportWebVitals from "./reportWebVitals"
 
 import "./styles/global.css"
 
 ReactDOM.render(
   <StrictMode>
-    <App />
+    <AppProvider>
+      <App />
+    </AppProvider>
   </StrictMode>,
   document.getElementById("root")
 )
