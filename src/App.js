@@ -1,11 +1,12 @@
 import { useState, useEffect, useMemo } from "react"
 
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg"
-import { Button, Alert } from "elementz"
 import ReactPlayer from "react-player"
 import Select from "react-select"
 
 import Progress from "./components/Progress"
+import Container from "./components/shared/Container/Container"
+import SourceMedia from "./components/SourceMedia/SourceMedia"
 
 const ffmpeg = createFFmpeg({
   log: process.env.NODE_ENV !== "production",
@@ -96,6 +97,13 @@ function App() {
     }
   }, [output])
 
+  return (
+    <Container>
+      <SourceMedia />
+    </Container>
+  )
+
+  // eslint-disable-next-line no-unreachable
   return ready ? (
     <div className="App">
       {inputObjectUrl && (
@@ -126,26 +134,6 @@ function App() {
         <ReactPlayer url={outputObjectUrl} controls />
       )}
       <Progress precentage={percentage} />
-      <Button.Group space>
-        <Button>I&apos;m basic</Button>
-        <Button primary>Primary</Button>
-        <Button secondary>Secondary</Button>
-        <Button warning>I&apos;m warning you</Button>
-        <Button
-          danger
-          effect="icon-buzz"
-          iconRight="sad"
-          onClick={() => Alert.danger("So dangerous")}
-        >
-          I&apos;m dangerous
-        </Button>
-        <Button
-          success
-          onClick={() => Alert.success("Yes")}
-        >
-          Im successful
-        </Button>
-      </Button.Group>
     </div>
   ) : (
     <p>Loading...</p>

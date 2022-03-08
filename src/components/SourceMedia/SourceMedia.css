@@ -1,0 +1,9 @@
+.source-root {
+  width: 10rem;
+  width: 50%;
+  background-color: var(--primary);
+}
+
+.source-root-rejected {
+  background-color: var(--red-light);
+}
