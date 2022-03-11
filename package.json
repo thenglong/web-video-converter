@@ -1,7 +1,7 @@
 {
-  "name": "react-ffmpeg",
+  "name": "web-video-converter",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.10.1",
     "@testing-library/jest-dom": "^5.16.2",
