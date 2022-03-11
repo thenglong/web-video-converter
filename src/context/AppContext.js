@@ -8,7 +8,7 @@ import {
 
 import { createFFmpeg } from "@ffmpeg/ffmpeg"
 
-import { isDev } from "../config/appConfig"
+import { ffmpegCorePath, isDev } from "../config/appConfig"
 import {
   SET_FFMPEG_STATE,
   SET_MEDIA_SRC_STATE,
@@ -18,8 +18,7 @@ import reducerLogger from "../utils/reducerLogger"
 
 const ffmpeg = createFFmpeg({
   log: isDev,
-  corePath:
-    "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js",
+  corePath: ffmpegCorePath,
 })
 
 const initialValue = {

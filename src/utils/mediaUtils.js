@@ -1,7 +1,7 @@
 import { getInfo } from "react-mediainfo"
 
 export const getSimplifiedMediaInfo = async (file) => {
-  const [overallTrack, videoTrack, audioTrack] =
+  const [overallTrack, _videoTrack, _audioTrack] =
     await getInfo(file).then((info) => info.media.track)
 
   const blobUrl = URL.createObjectURL(file)
