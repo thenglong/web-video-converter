@@ -2,18 +2,18 @@ import { StrictMode } from "react"
 
 import "react-circular-progressbar/dist/styles.css"
 import ReactDOM from "react-dom"
+import { RecoilRoot } from "recoil"
 
 import App from "./App"
-import { AppProvider } from "./context/AppContext"
 import reportWebVitals from "./reportWebVitals"
 
 import "./styles/global.css"
 
 ReactDOM.render(
   <StrictMode>
-    <AppProvider>
+    <RecoilRoot>
       <App />
-    </AppProvider>
+    </RecoilRoot>
   </StrictMode>,
   document.getElementById("root")
 )

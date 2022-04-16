@@ -6,8 +6,10 @@ import { useDropzone } from "react-dropzone"
 
 import { useAppContext } from "../../context/AppContext"
 
+import "./SourceMediaDropzone.css"
+
 const SourceMediaDropzone = () => {
-  const { setMediaSrc, mediaSrc } = useAppContext()
+  const { setMediaSrc } = useAppContext()
   const onDrop = useCallback(
     async (acceptedFiles) => {
       const file = acceptedFiles?.[0]
@@ -31,6 +33,7 @@ const SourceMediaDropzone = () => {
     maxFiles: 1,
     noClick: true,
   })
+
   return (
     <div
       {...getRootProps()}
