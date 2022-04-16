@@ -1,4 +1,4 @@
-import { Button } from "elementz"
+import { BigPlayButton, Player } from "video-react"
 
 import { useAppContext } from "../../context/AppContext"
 import SourceMediaDropzone from "./SourceMediaDropzone"
@@ -13,17 +13,12 @@ const SourceMedia = () => {
 
   return (
     <div style={{ width: "100%" }}>
-      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-      <video
-        // className="video-preview"
-        style={{ width: "100%" }}
-        src={blobUrl}
-        controls
-      />
-      <Button primary>Change Source</Button>
+      <Player src={blobUrl}>
+        <BigPlayButton position="center" />
+      </Player>
       <pre>
-        {mediaSrc.info &&
-          JSON.stringify(mediaSrc.info, null, 2)}
+        {/*{mediaSrc.info &&*/}
+        {/*  JSON.stringify(mediaSrc.info, null, 2)}*/}
       </pre>
     </div>
   )

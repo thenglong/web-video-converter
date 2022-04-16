@@ -1,19 +1,45 @@
-import { Group, Select } from "elementz"
-import "./ConverterSetting.css"
+import { Button, Group, Select } from "elementz"
 
-const options = [
-  { value: "mp4", label: "MP4" },
-  { value: "mp3", label: "MP3" },
-  { value: "mkv", label: "MKV" },
-  { value: "webm", label: "WebM" },
-]
+import "./ConverterSetting.css"
+import {
+  useAppContext,
+  videoTypeOptions,
+} from "../../context/AppContext"
+import Progress from "../Progress"
 
 const ConverterSetting = () => {
+  const {
+    mediaSrc,
+    mediaSrcDropzone,
+    setOutputType,
+    convert,
+    convertOptions,
+    convertProgress: { isConverting, percentage },
+  } = useAppContext()
+
+  const { open: openFileDialog } = mediaSrcDropzone || {}
+
+  const shouldDisableConvert =
+    !mediaSrc.file || isConverting
+
   return (
-    <Group space ns full>
-      <Select.Nice sm primary active full>
-        {options.map((option) => (
+    <Group
+      space
+      vertical
+      full
+      style={{ justifyContent: "center" }}
+    >
+      <Select.Nice
+        md
+        primary
+        active
+        full
+        onChange={(value) => setOutputType(value)}
+        value={convertOptions.type}
+      >
+        {videoTypeOptions.map((option) => (
           <Select.Option
+            selected={option.value === convertOptions.type}
             key={option.value}
             value={option.value}
           >
@@ -21,6 +47,30 @@ const ConverterSetting = () => {
           </Select.Option>
         ))}
       </Select.Nice>
+
+      {mediaSrc.file && (
+        <Button primary md onClick={openFileDialog}>
+          Change Source
+        </Button>
+      )}
+
+      <Button
+        disabled={shouldDisableConvert}
+        secondary
+        md
+        onClick={convert}
+      >
+        Convert
+      </Button>
+
+      <Progress
+        precentage={percentage}
+        style={{
+          width: 175,
+          height: 175,
+          alignSelf: "center",
+        }}
+      />
     </Group>
   )
 }

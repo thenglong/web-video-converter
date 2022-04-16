@@ -1,8 +1,8 @@
 import { CircularProgressbar } from "react-circular-progressbar"
 
-export default function Progress({ precentage }) {
+export default function Progress({ precentage, ...props }) {
   return (
-    <div style={{ width: 200, height: 200 }}>
+    <div {...props}>
       <CircularProgressbar
         value={precentage}
         text={`${Math.floor(precentage)}%`}

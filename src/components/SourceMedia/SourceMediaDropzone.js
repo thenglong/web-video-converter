@@ -1,24 +1,12 @@
-import { useCallback } from "react"
-
 import classnames from "classnames"
 import { Button } from "elementz"
-import { useDropzone } from "react-dropzone"
 
 import { useAppContext } from "../../context/AppContext"
 
 import "./SourceMediaDropzone.css"
 
 const SourceMediaDropzone = () => {
-  const { setMediaSrc } = useAppContext()
-  const onDrop = useCallback(
-    async (acceptedFiles) => {
-      const file = acceptedFiles?.[0]
-      if (file) {
-        setMediaSrc(file)
-      }
-    },
-    [setMediaSrc]
-  )
+  const { mediaSrcDropzone } = useAppContext()
 
   const {
     getRootProps,
@@ -27,12 +15,7 @@ const SourceMediaDropzone = () => {
     isDragAccept,
     isDragReject,
     open: openFileDialog,
-  } = useDropzone({
-    onDrop,
-    accept: "video/*",
-    maxFiles: 1,
-    noClick: true,
-  })
+  } = mediaSrcDropzone || {}
 
   return (
     <div

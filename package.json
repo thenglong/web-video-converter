@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^14.1.0",
     "classnames": "^2.3.1",
+    "debug": "^4.3.4",
     "elementz": "^2.0.5",
     "react": "^18.0.0",
     "react-circular-progressbar": "^2.0.4",
@@ -16,7 +17,6 @@
     "react-error-boundary": "^3.1.4",
     "react-mediainfo": "^0.0.42",
     "react-scripts": "5.0.1",
-    "recoil": "^0.7.2",
     "video-react": "^0.15.0",
     "web-vitals": "^2.1.4"
   },
