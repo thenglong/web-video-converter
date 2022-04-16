@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: 'lts/*'
           
-      - name: Cache dependencies
+      - name: Cache dependencies ⚙️
         uses: actions/cache@v2
         with:
           path: ~/.npm
@@ -37,8 +37,9 @@ jobs:
    
 
       - name: Commit and create PR 🔀
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v4
         with:
           title: 'build(deps): Upgrade NPM packages (automated)'
           branch: 'build-deps-upgrade-npm-packages-automated'
           commit-message: 'build(deps): upgrade NPM packages (automated)'
+          labels: ['dependencies']
