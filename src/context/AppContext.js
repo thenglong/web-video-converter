@@ -113,7 +113,6 @@ export const AppProvider = ({ children }) => {
 
   const setMediaSrc = useCallback(async (file) => {
     const info = await getSimplifiedMediaInfo(file)
-
     dispatch({
       type: SET_MEDIA_SRC_STATE,
       payload: {

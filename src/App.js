@@ -4,22 +4,22 @@ import { fetchFile } from "@ffmpeg/ffmpeg"
 
 import ConverterSetting from "./components/ConverterSetting/ConverterSetting"
 import OutputMedia from "./components/OutputMedia/OutputMedia"
-import Progress from "./components/Progress"
+import _Progress from "./components/Progress"
 import SourceMedia from "./components/SourceMedia/SourceMedia"
 import { useAppContext } from "./context/AppContext"
 
 function App() {
-  const [input, setInput] = useState()
+  const [input, _setInput] = useState()
   const [output, setOutput] = useState()
-  const [percentage, setPercentage] = useState(0)
-  const [selectedType, setSelectedType] = useState()
+  const [_percentage, setPercentage] = useState(0)
+  const [selectedType, _setSelectedType] = useState()
   // options[0]
 
   const {
     ffmpegWasm: { ffmpeg },
   } = useAppContext()
 
-  const convertToGif = async () => {
+  const _convertToGif = async () => {
     // start timer
     const start = new Date().getTime()
 
@@ -62,24 +62,31 @@ function App() {
 
     // end timer
     const end = new Date().getTime()
-    const time = end - start
-    console.log(time / 1000 / 60 + "minutes")
+    const _time = end - start
+    // console.log(time / 1000 / 60 + "minutes")
   }
 
-  const inputObjectUrl = useMemo(() => {
+  const _inputObjectUrl = useMemo(() => {
     if (input) {
       return URL.createObjectURL(input)
     }
   }, [input])
 
-  const outputObjectUrl = useMemo(() => {
+  const _outputObjectUrl = useMemo(() => {
     if (output) {
       return URL.createObjectURL(output)
     }
   }, [output])
 
   return (
-    <div>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns:
+          "minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr)",
+        gridGap: "1rem",
+      }}
+    >
       <SourceMedia />
       <ConverterSetting />
       <OutputMedia />

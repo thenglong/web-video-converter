@@ -9,21 +9,18 @@ const SourceMedia = () => {
   const { mediaSrc } = useAppContext()
   const { blobUrl } = mediaSrc.info || {}
 
-  return (
-    <div style={{ width: "40%", textAlign: "center" }}>
-      {!blobUrl && <SourceMediaDropzone />}
-      {blobUrl && (
-        <>
-          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-          <video
-            className="video-preview"
-            src={blobUrl}
-            controls
-          />
-          <Button primary>Change Source</Button>
-        </>
-      )}
+  if (!blobUrl) return <SourceMediaDropzone />
 
+  return (
+    <div style={{ width: "100%" }}>
+      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+      <video
+        // className="video-preview"
+        style={{ width: "100%" }}
+        src={blobUrl}
+        controls
+      />
+      <Button primary>Change Source</Button>
       <pre>
         {mediaSrc.info &&
           JSON.stringify(mediaSrc.info, null, 2)}

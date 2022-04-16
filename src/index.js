@@ -1,21 +1,25 @@
 import { StrictMode } from "react"
 
 import "react-circular-progressbar/dist/styles.css"
-import ReactDOM from "react-dom"
+import { createRoot } from "react-dom/client"
 import { RecoilRoot } from "recoil"
 
 import App from "./App"
+import { AppProvider } from "./context/AppContext"
 import reportWebVitals from "./reportWebVitals"
 
 import "./styles/global.css"
 
-ReactDOM.render(
+const container = document.getElementById("root")
+const root = createRoot(container) // createRoot(container!) if you use TypeScript
+root.render(
   <StrictMode>
     <RecoilRoot>
-      <App />
+      <AppProvider>
+        <App />
+      </AppProvider>
     </RecoilRoot>
-  </StrictMode>,
-  document.getElementById("root")
+  </StrictMode>
 )
 
 // If you want to start measuring performance in your app, pass a function

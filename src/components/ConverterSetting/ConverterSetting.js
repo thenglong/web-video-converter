@@ -10,8 +10,8 @@ const options = [
 
 const ConverterSetting = () => {
   return (
-    <Group space className="mt-20" ns>
-      <Select.Nice sm primary active>
+    <Group space ns full>
+      <Select.Nice sm primary active full>
         {options.map((option) => (
           <Select.Option
             key={option.value}
