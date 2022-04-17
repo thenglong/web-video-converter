@@ -1,82 +1,28 @@
-import { useMemo, useState } from "react"
-
-import { fetchFile } from "@ffmpeg/ffmpeg"
+import { Loading } from "elementz"
 
 import ConverterSetting from "./components/ConverterSetting/ConverterSetting"
 import OutputMedia from "./components/OutputMedia/OutputMedia"
-import _Progress from "./components/Progress"
 import SourceMedia from "./components/SourceMedia/SourceMedia"
 import { useAppContext } from "./context/AppContext"
 
 function App() {
-  const [input, _setInput] = useState()
-  const [output, setOutput] = useState()
-  const [_percentage, setPercentage] = useState(0)
-  const [selectedType, _setSelectedType] = useState()
-  // options[0]
-
   const {
-    ffmpegWasm: { ffmpeg },
+    ffmpegWasm: { isLoading },
   } = useAppContext()
 
-  const _convertToGif = async () => {
-    // start timer
-    const start = new Date().getTime()
-
-    const inMemoryFilename = `working-${input.name}`
-
-    // Write the file to memory
-    ffmpeg.FS(
-      "writeFile",
-      inMemoryFilename,
-      await fetchFile(input)
+  if (isLoading)
+    return (
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          display: "grid",
+          placeContent: "center",
+        }}
+      >
+        <Loading primary xl />
+      </div>
     )
-
-    ffmpeg.setProgress((p) => {
-      setPercentage(p.ratio * 100)
-    })
-
-    // Run the FFMpeg command
-    // await ffmpeg.run('-i', inMemoryFilename, '-t', '20.5', '-ss', '2.0', '-f', 'mp4', 'out.mp4');
-    await ffmpeg.run(
-      "-i",
-      inMemoryFilename,
-      `out.${selectedType.value}`
-    )
-
-    // Read the result
-    const data = ffmpeg.FS(
-      "readFile",
-      `out.${selectedType.value}`
-    )
-
-    // Create a URL and set output
-    setOutput(
-      new Blob([data.buffer], {
-        type: `video/${selectedType.value}`,
-      })
-    )
-
-    // unlink file
-    ffmpeg.FS("unlink", inMemoryFilename)
-
-    // end timer
-    const end = new Date().getTime()
-    const _time = end - start
-    // console.log(time / 1000 / 60 + "minutes")
-  }
-
-  const _inputObjectUrl = useMemo(() => {
-    if (input) {
-      return URL.createObjectURL(input)
-    }
-  }, [input])
-
-  const _outputObjectUrl = useMemo(() => {
-    if (output) {
-      return URL.createObjectURL(output)
-    }
-  }, [output])
 
   return (
     <div
@@ -92,42 +38,6 @@ function App() {
       <OutputMedia />
     </div>
   )
-
-  // eslint-disable-next-line no-unreachable
-  // return ready ? (
-  //   <div className="App">
-  //     {inputObjectUrl && (
-  //       <ReactPlayer url={inputObjectUrl} controls />
-  //     )}
-  //
-  //     <Select
-  //       options={options}
-  //       onChange={setSelectedType}
-  //       defaultValue={options[0]}
-  //     />
-  //
-  //     <input
-  //       type="file"
-  //       onChange={(e) => setInput(e.target.files?.item(0))}
-  //       accept="image/*, audio/*, video/*"
-  //     />
-  //
-  //     <h3>Results</h3>
-  //     <button
-  //       className="button-primary"
-  //       onClick={convertToGif}
-  //     >
-  //       Convert
-  //     </button>
-  //
-  //     {outputObjectUrl && (
-  //       <ReactPlayer url={outputObjectUrl} controls />
-  //     )}
-  //     <Progress precentage={percentage} />
-  //   </div>
-  // ) : (
-  //   <p>Loading...</p>
-  // )
 }
 
 export default App
