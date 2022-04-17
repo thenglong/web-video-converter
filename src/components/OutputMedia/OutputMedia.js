@@ -1,7 +1,8 @@
-import "./OutputMedia.css"
-import { BigPlayButton, Player } from "video-react"
+import { Replay } from "vimond-replay"
 
 import { useAppContext } from "../../context/AppContext"
+
+import "./OutputMedia.css"
 
 const OutputMedia = () => {
   const { mediaOutput } = useAppContext()
@@ -10,9 +11,10 @@ const OutputMedia = () => {
   return (
     <div className="output-root">
       {blobUrl ? (
-        <Player src={blobUrl}>
-          <BigPlayButton position="center" />
-        </Player>
+        <Replay
+          source={blobUrl}
+          initialPlaybackProps={{ isPaused: true }}
+        />
       ) : (
         "Waiting for conversion..."
       )}

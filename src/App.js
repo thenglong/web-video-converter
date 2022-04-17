@@ -5,7 +5,7 @@ import OutputMedia from "./components/OutputMedia/OutputMedia"
 import SourceMedia from "./components/SourceMedia/SourceMedia"
 import { useAppContext } from "./context/AppContext"
 
-import "./App.css"
+import "./App.scss"
 
 function App() {
   const {

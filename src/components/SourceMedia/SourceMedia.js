@@ -1,4 +1,4 @@
-import { BigPlayButton, Player } from "video-react"
+import { Replay } from "vimond-replay"
 
 import { useAppContext } from "../../context/AppContext"
 import SourceMediaDropzone from "./SourceMediaDropzone"
@@ -13,9 +13,10 @@ const SourceMedia = () => {
 
   return (
     <div className="source-media--root">
-      <Player src={blobUrl}>
-        <BigPlayButton position="center" />
-      </Player>
+      <Replay
+        source={blobUrl}
+        initialPlaybackProps={{ isPaused: true }}
+      />
     </div>
   )
 }

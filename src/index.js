@@ -7,8 +7,7 @@ import App from "./App"
 import { AppProvider } from "./context/AppContext"
 import reportWebVitals from "./reportWebVitals"
 
-import "video-react/dist/video-react.css"
-import "./styles/global.css"
+import "vimond-replay/index.css"
 
 const container = document.getElementById("root")
 const root = createRoot(container)
