@@ -5,6 +5,8 @@ import OutputMedia from "./components/OutputMedia/OutputMedia"
 import SourceMedia from "./components/SourceMedia/SourceMedia"
 import { useAppContext } from "./context/AppContext"
 
+import "./App.css"
+
 function App() {
   const {
     ffmpegWasm: { isLoading },
@@ -12,27 +14,13 @@ function App() {
 
   if (isLoading)
     return (
-      <div
-        style={{
-          width: "100vw",
-          height: "100vh",
-          display: "grid",
-          placeContent: "center",
-        }}
-      >
+      <div className="app--loading-fullscreen">
         <Loading primary xl />
       </div>
     )
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns:
-          "minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr)",
-        gridGap: "1rem",
-      }}
-    >
+    <div className="app-wrapper">
       <SourceMedia />
       <ConverterSetting />
       <OutputMedia />

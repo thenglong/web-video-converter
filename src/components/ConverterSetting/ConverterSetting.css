@@ -1,3 +1,9 @@
-.setting-root {
-  background: #666;
+.converter-setting {
+  justify-content: center;
+}
+
+.converter-setting--progress {
+  width: 175px;
+  height: 175px;
+  align-self: center;
 }

@@ -20,9 +20,9 @@ const SourceMediaDropzone = () => {
   return (
     <div
       {...getRootProps()}
-      className={classnames("source-root", {
-        "source-root--active": isDragAccept,
-        "source-root--rejected": isDragReject,
+      className={classnames("dropzone-root", {
+        "dropzone-root--active": isDragAccept,
+        "dropzone-root--rejected": isDragReject,
       })}
     >
       <input {...getInputProps()} />

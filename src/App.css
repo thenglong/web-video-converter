@@ -1,0 +1,15 @@
+.app-wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(
+      0,
+      2fr
+    );
+  grid-gap: 1rem;
+}
+
+.app--loading-fullscreen {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-content: center;
+}

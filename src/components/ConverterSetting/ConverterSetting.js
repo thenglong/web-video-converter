@@ -27,7 +27,7 @@ const ConverterSetting = () => {
       space
       vertical
       full
-      style={{ justifyContent: "center" }}
+      className="converter-setting"
     >
       <Select.Nice
         md
@@ -65,11 +65,7 @@ const ConverterSetting = () => {
 
       <Progress
         precentage={percentage}
-        style={{
-          width: 175,
-          height: 175,
-          alignSelf: "center",
-        }}
+        className="converter-setting--progress"
       />
     </Group>
   )

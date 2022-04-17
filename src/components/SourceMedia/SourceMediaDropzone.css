@@ -1,4 +1,4 @@
-.source-root {
+.dropzone-root {
   width: 100%;
   height: 20rem;
   background-image: url("../../assets/svg/dashed-border.svg");
@@ -12,12 +12,12 @@
   color: var(--primary-x-light);
 }
 
-.source-root--active {
+.dropzone-root--active {
   background-color: var(--green-x-light);
   color: var(--green-dark);
 }
 
-.source-root--rejected {
+.dropzone-root--rejected {
   background-color: var(--red-x-light);
   color: var(--red-dark);
 }

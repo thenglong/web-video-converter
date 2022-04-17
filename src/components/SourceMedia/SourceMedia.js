@@ -12,14 +12,10 @@ const SourceMedia = () => {
   if (!blobUrl) return <SourceMediaDropzone />
 
   return (
-    <div style={{ width: "100%" }}>
+    <div className="source-media--root">
       <Player src={blobUrl}>
         <BigPlayButton position="center" />
       </Player>
-      <pre>
-        {/*{mediaSrc.info &&*/}
-        {/*  JSON.stringify(mediaSrc.info, null, 2)}*/}
-      </pre>
     </div>
   )
 }
