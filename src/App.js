@@ -9,10 +9,10 @@ import "./App.css"
 
 function App() {
   const {
-    ffmpegWasm: { isLoading },
+    ffmpegWasm: { isLoading, isLoadingSuccess },
   } = useAppContext()
 
-  if (isLoading)
+  if (isLoading && !isLoadingSuccess)
     return (
       <div className="app--loading-fullscreen">
         <Loading primary xl />
