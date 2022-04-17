@@ -97,6 +97,9 @@ const appReducer = (state = initialValue, action) => {
       }
     }
     case SET_MEDIA_OUTPUT: {
+      // check and clear the blobUrl from memory
+      const blobUrl = state.mediaOutput.info?.blobUrl
+      if (blobUrl) URL.revokeObjectURL(blobUrl)
       return {
         ...state,
         mediaOutput: {
