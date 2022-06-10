@@ -19,7 +19,7 @@
     "react-mediainfo": "^0.0.42",
     "react-scripts": "5.0.1",
     "sass": "^1.52.2",
-    "vimond-replay": "^3.3.0",
+    "vimond-replay": "^3.3.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
